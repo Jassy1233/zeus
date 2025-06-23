@@ -15,13 +15,10 @@ const __dirname = dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: 'http://localhost:5173', // Cambia aquí si tu frontend corre en otro dominio o puerto
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
-// Configuración nodemailer (ajusta con tus datos en .env)
+// Configuración de nodemailer
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -30,7 +27,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Ruta para recibir formulario de inscripción
+// Ruta para el formulario de inscripción
 app.post('/api/inscripcion', async (req, res) => {
   try {
     const { discordName, position, message } = req.body;
@@ -56,72 +53,32 @@ app.post('/api/inscripcion', async (req, res) => {
   }
 });
 
+// Ruta para fans (registro por IP)
 const fansFile = path.join(__dirname, 'fans.json');
 
-// POST para registrar fan (por IP)
 app.post('/api/fan', (req, res) => {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
-  console.log('IP del fan:', ip);
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
   let fans = [];
   if (fs.existsSync(fansFile)) {
-    try {
-      const data = fs.readFileSync(fansFile, 'utf-8');
-      console.log('fans.json antes:', data);
-      const parsed = JSON.parse(data);
-      fans = Array.isArray(parsed) ? parsed : [];
-    } catch (err) {
-      console.error('Error leyendo fans.json:', err);
-      fans = [];
-    }
+    fans = JSON.parse(fs.readFileSync(fansFile, 'utf-8'));
   }
 
   if (fans.includes(ip)) {
-    console.log('IP ya registrada.');
     return res.status(400).json({ message: 'Ya estás registrado como fan' });
   }
 
   fans.push(ip);
-  try {
-    fs.writeFileSync(fansFile, JSON.stringify(fans, null, 2));
-    console.log('fans.json actualizado:', JSON.stringify(fans, null, 2));
-    res.status(200).json({ message: '¡Gracias por unirte como fan!' });
-  } catch (err) {
-    console.error('Error escribiendo en fans.json:', err);
-    res.status(500).json({ message: 'Error al registrar fan' });
-  }
+  fs.writeFileSync(fansFile, JSON.stringify(fans, null, 2));
+
+  res.status(200).json({ message: '¡Gracias por unirte como fan!' });
 });
 
-// GET para verificar si IP ya es fan
-app.get('/api/fan', (req, res) => {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
-  let fans = [];
-  if (fs.existsSync(fansFile)) {
-    try {
-      const data = fs.readFileSync(fansFile, 'utf-8');
-      const parsed = JSON.parse(data);
-      fans = Array.isArray(parsed) ? parsed : [];
-    } catch (err) {
-      console.error('Error leyendo fans.json:', err);
-      fans = [];
-    }
-  }
-  const alreadyFan = fans.includes(ip);
-  res.json({ alreadyFan });
-});
-
-// GET para total de fans
+// Ruta para consultar el número total de fans
 app.get('/api/fans', (req, res) => {
   let fans = [];
   if (fs.existsSync(fansFile)) {
-    try {
-      const data = fs.readFileSync(fansFile, 'utf-8');
-      const parsed = JSON.parse(data);
-      fans = Array.isArray(parsed) ? parsed : [];
-    } catch (err) {
-      console.error('Error leyendo fans.json:', err);
-      fans = [];
-    }
+    fans = JSON.parse(fs.readFileSync(fansFile, 'utf-8'));
   }
   res.json({ total: fans.length });
 });

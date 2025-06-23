@@ -1,0 +1,425 @@
+/* Reset y tipografía */
+html{
+    scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0c10;
+  color: #fff;
+}
+
+a {
+  color: #66fcf1;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #45a29e;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #1f2833;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #66fcf1;
+}
+
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #66fcf1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav a {
+  margin-left: 2rem;
+  color: #ffffff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav a:hover {
+  color: #66fcf1;
+}
+/* Hero */
+.hero {
+  height: 100vh;
+  background-image: url('../IMG/1319754.jpeg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  color: white;
+  animation: fadeIn 1s ease-in-out;
+}
+
+
+.hero-content h2 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content .highlight {
+  color: #66fcf1;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #c5c6c7;
+}
+
+.cta-button {
+  background: linear-gradient(to right, #66fcf1, #45a29e);
+  color: #0b0c10;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(102, 252, 241, 0.4);
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #45a29e, #66fcf1);
+  color: white;
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.7);
+}
+
+.scroll-down-btn {
+  position: absolute;
+  top: 450px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: #66fcf1;
+  text-decoration: none;
+  animation: bounce 2s infinite;
+  z-index: 2;
+  transition: transform 0.3s;
+}
+
+.scroll-down-btn:hover {
+  transform: translateX(-50%) scale(1.2);
+}
+
+/* Animación de rebote */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Secciones */
+.section {
+  width: 100%;
+  height: 100vh;
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* Slider de partidos - estilo Blue Lock */
+.partidos-section {
+  height: 100vh;
+  background: #0b0c10;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.partidos-section h2 {
+  font-size: 2.5rem;
+  color: #66fcf1;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#countdown {
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 5px #66fcf1;
+}
+
+.partido-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-in-out;
+  position: relative;
+}
+
+/* Botones personalizados */
+.nav-btn {
+  background: transparent;
+  border: 2px solid #66fcf1;
+  color: #66fcf1;
+  font-size: 2rem;
+  border-radius: 50%;
+  padding: 0.5rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(102, 252, 241, 0.4);
+}
+
+.nav-btn:hover {
+  background: #66fcf1;
+  color: #0b0c10;
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.8);
+  transform: scale(1.1);
+}
+
+/* Tarjeta de partido con estilo neón */
+.partido-card {
+  background: linear-gradient(145deg, #0b0c10, #1a1a1a);
+  border: 2px solid #66fcf1;
+  border-radius: 1rem;
+  padding: 2rem;
+  min-width: 320px;
+  max-width: 380px;
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.partido-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(102, 252, 241, 0.5);
+}
+
+.partido-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #66fcf1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.partido-card p {
+  font-size: 1rem;
+  color: #c5c6c7;
+  text-align: center;
+  line-height: 1.5;
+}
+
+
+/* Jugadores */
+.players {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 0;
+  
+}
+
+.player-card {
+  background: #0b0c10;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+  text-align: center;
+  padding: 1.5rem;
+  width: 200px;
+  transition: transform 0.3s ease;
+}
+
+.player-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.4);
+}
+
+.player-card img {
+  width: 50%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.player-card h3 {
+  color: #66fcf1;
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.player-card p {
+  color: #c5c6c7;
+  font-size: 0.95rem;
+}
+
+/* Formulario */
+/* Título del formulario */
+.form-title {
+  font-size: 2rem;           /* ligeramente más pequeño */
+  margin-bottom: 1.5rem;
+  color: #66fcf1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* Formulario con neones y estilo futurista */
+.join-form {
+  max-width: 500px;          /* ancho contenido */
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;                 /* espacio moderado */
+  background: linear-gradient(145deg, #0b0c10, #1a1a1a);
+  padding: 1.5rem;           /* padding reducido */
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.2);
+  border: 2px solid #66fcf1;
+}
+
+/* Inputs, select y textarea */
+.join-form input,
+.join-form select,
+.join-form textarea {
+  padding: 0.8rem;           /* menos padding */
+  border: none;
+  border-radius: 6px;
+  background: #0b0c10;
+  color: #fff;
+  font-size: 0.95rem;        /* fuente algo menor */
+  box-shadow: inset 0 0 8px rgba(102, 252, 241, 0.1);
+  border: 1px solid #45a29e;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* Textarea en particular más alto */
+.join-form textarea {
+  min-height: 140px;
+}
+
+/* Focus state */
+.join-form input:focus,
+.join-form select:focus,
+.join-form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 12px rgba(102, 252, 241, 0.6);
+  transform: scale(1.01);
+}
+
+/* Botón del formulario */
+.form-button {
+  background: linear-gradient(to right, #66fcf1, #45a29e);
+  color: #0b0c10;
+  padding: 0.8rem 1.2rem;     /* padding reducido */
+  font-size: 0.95rem;        /* fuente menor */
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 12px rgba(102, 252, 241, 0.4);
+}
+
+.form-button:hover {
+  background: linear-gradient(to right, #45a29e, #66fcf1);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.8);
+  transform: scale(1.03);
+}
+
+/* Mensaje urgente */
+.urgent-message {
+  width: 80%;
+  margin: 0 auto 1rem;
+  display: block;
+  font-size: 1rem;
+  color: #ff3c38;
+  background: rgba(255, 60, 56, 0.1);
+  border: 1px solid #ff3c38;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 60, 56, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 60, 56, 0.8);
+  }
+}
+
+
+
+
+/* Footer */
+.footer {
+  background: #1f2833;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}

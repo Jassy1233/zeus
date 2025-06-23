@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equipo Rematch</title>
+    <link rel="stylesheet" href="../CSS/styles.css" />
+    <script src="../JS/script.js" defer></script>
+    <script src="../JS/ppartidos.js" defer></script>
+    <script src="../JS/fetch.js" defer></script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="logo">⚽ <span>Zeus</span></div>
+        <nav class="nav">
+          <a href="#proximos-partidos">Partidos</a>
+          <a href="#jugadores">Jugadores</a>
+          <a href="#formulario">Únete</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-overlay">
+        <div class="hero-content">
+          <h2>Bienvenidos a <span class="highlight">Zeus</span></h2>
+          <p>
+            Donde el juego es solo el comienzo. Competimos. Mejoramos. Ganamos.
+          </p>
+          <a href="#formulario" class="cta-button">Únete al equipo</a>
+          <a
+            href="#jugadores"
+            class="scroll-down-btn"
+            aria-label="Ir a próximos partidos"
+            onclick="scrollToPartidos()"
+            >↓</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Jugadores -->
+    <section id="jugadores" class="section">
+      <h2>Jugadores Titulares</h2>
+      <div class="players">
+        <!-- Portero -->
+        <div class="player-card">
+          <img src="../IMG/gagamuro.webp" alt="Endou Mamoru" />
+          <h3>En busca</h3>
+          <p>
+            “No pasa ni el WiFi.” <br /><br /><strong>Posición:</strong> Portero
+            (Goalkeeper)
+          </p>
+        </div>
+        <!-- Delantero -->
+        <div class="player-card">
+          <img src="../IMG/nagi.webp" alt="Gouenji Shuuya" />
+          <h3>Dinero</h3>
+          <p>
+            “El terror de los porteros (y de los defensas también).”<br /><br /><strong
+              >Posición:</strong
+            >
+            Delantero (Forward)
+          </p>
+        </div>
+        <!-- Defensor -->
+        <div class="player-card">
+          <img src="../IMG/nico.webp" alt="Kidou Yuuto" />
+          <h3>Jassy</h3>
+          <p>
+            “Cierro más que un banco en quiebra.” <br /><br /><strong
+              >Posición:</strong
+            >
+            Defensor (Defender)
+          </p>
+        </div>
+        <!-- Defensor -->
+        <div class="player-card">
+          <img src="../IMG/gitano.webp" alt="Kazemaru Ichirouta" />
+          <h3>Grumo</h3>
+          <p>
+            “Paso yo o pasa el balón… pero no los dos.” <br /><br /><strong
+              >Posición:</strong
+            >
+            Defensor (Defender)
+          </p>
+        </div>
+        <!-- Segundo delantero / delantero mixto -->
+        <div class="player-card">
+          <img src="../IMG/bachira.webp" alt="Fubuki Shirou" />
+          <h3>F8cil</h3>
+          <p>
+            “Juego donde quiero. Y si no quiero, también.” <br /><br /><strong
+              >Posición:</strong
+            >
+            Segundo delantero / delantero mixto (Forward/Defender)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    <section id="proximos-partidos" class="section partidos-section">
+      <h2>Próximos Partidos</h2>
+      <div id="countdown" class="countdown"></div>
+
+      <div class="partido-container">
+        <button id="prevPartido" class="nav-btn prev">←</button>
+
+        <div id="partido-card" class="partido-card">
+        </div>
+
+        <button id="nextPartido" class="nav-btn next">→</button>
+      </div>
+    </section>
+  
+
+    <!-- Formulario para unirse -->
+    <section id="formulario" class="section">
+      <h2 class="form-title">¿Quieres unirte al equipo?</h2>
+      <p class="urgent-message">⚠️ ¡Necesitamos un portero urgentemente! ⚠️</p>
+      <form id="joinForm" class="join-form">
+        <input
+          type="text"
+          name="discordName"
+          placeholder="Tu usuario de Discord (ej: Ego#1234)"
+          required
+        />
+
+        <select name="position" required>
+          <option value="">Selecciona tu posición</option>
+          <option value="Delantero">Delantero</option>
+          <option value="Mediocampista">Mediocampista</option>
+          <option value="Defensa">Defensa</option>
+          <option value="Portero">Portero</option>
+          <option value="Flex">Flex (puedes jugar varias posiciones)</option>
+        </select>
+
+        <textarea
+          name="message"
+          placeholder="Cuéntanos por qué te gustaría unirte"
+          required
+        ></textarea>
+
+        <button type="submit" class="form-button">Enviar solicitud</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2025 Equipo Rematch. Todos los derechos reservados.</p>
+    </footer>
+  </body>
+</html>

@@ -3,10 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const fanMessage = document.getElementById('fanMessage');
   const fanCount = document.getElementById('fanCount');
 
+  // Cambia esta variable por tu URL pública en Railway
+  const API_BASE_URL = 'https://zeus-backend-production.up.railway.app';
+
   // Verifica si el usuario ya es fan
   async function checkIfFan() {
     try {
-      const res = await fetch('http://localhost:3000/api/fan');
+      const res = await fetch(`${API_BASE_URL}/api/fan`);
       const data = await res.json();
 
       if (data.alreadyFan) {
@@ -21,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Actualiza el contador de fans
   async function loadFanCount() {
     try {
-      const res = await fetch('http://localhost:3000/api/fans');
+      const res = await fetch(`${API_BASE_URL}/api/fans`);
       const data = await res.json();
       fanCount.textContent = `${data.total}`;
     } catch {
@@ -32,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Evento para registrarse como fan
   fanButton.addEventListener('click', async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/fan', {
+      const response = await fetch(`${API_BASE_URL}/api/fan`, {
         method: 'POST'
       });
 

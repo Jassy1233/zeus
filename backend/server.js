@@ -14,7 +14,13 @@ const __dirname = dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+// ⚠️ Configura CORS para aceptar solo peticiones desde tu frontend en Vercel
+app.use(cors({
+  origin: 'https://zeus-backend-production.up.railway.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+}));
+
 app.use(express.json());
 
 // 📦 Conexión a MongoDB

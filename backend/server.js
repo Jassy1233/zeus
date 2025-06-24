@@ -2,8 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
+import mongoose from 'mongoose';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -18,7 +17,22 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Configuración de nodemailer
+// 📦 Conexión a MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('✅ Conectado a MongoDB'))
+  .catch(err => console.error('❌ Error conectando a MongoDB:', err));
+
+// 📄 Modelo de fan
+const fanSchema = new mongoose.Schema({
+  ip: { type: String, unique: true },
+  date: { type: Date, default: Date.now }
+});
+
+const Fan = mongoose.model('Fan', fanSchema);
+
+// 📬 Configuración de nodemailer
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -27,7 +41,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Ruta para el formulario de inscripción
+// 📩 Ruta para el formulario de inscripción
 app.post('/api/inscripcion', async (req, res) => {
   try {
     const { discordName, position, message } = req.body;
@@ -45,7 +59,6 @@ app.post('/api/inscripcion', async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-
     res.status(200).json({ message: 'Solicitud enviada correctamente' });
   } catch (error) {
     console.error('Error al enviar email:', error);
@@ -53,36 +66,49 @@ app.post('/api/inscripcion', async (req, res) => {
   }
 });
 
-// Ruta para fans (registro por IP)
-const fansFile = path.join(__dirname, 'fans.json');
-
-app.post('/api/fan', (req, res) => {
+// 💙 Ruta para registrar un fan por IP
+app.post('/api/fan', async (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
-  let fans = [];
-  if (fs.existsSync(fansFile)) {
-    fans = JSON.parse(fs.readFileSync(fansFile, 'utf-8'));
+  try {
+    const exists = await Fan.findOne({ ip });
+
+    if (exists) {
+      return res.status(400).json({ message: 'Ya estás registrado como fan' });
+    }
+
+    await Fan.create({ ip });
+    res.status(200).json({ message: '¡Gracias por unirte como fan!' });
+  } catch (err) {
+    console.error('Error registrando fan:', err);
+    res.status(500).json({ message: 'Error al registrar fan' });
   }
-
-  if (fans.includes(ip)) {
-    return res.status(400).json({ message: 'Ya estás registrado como fan' });
-  }
-
-  fans.push(ip);
-  fs.writeFileSync(fansFile, JSON.stringify(fans, null, 2));
-
-  res.status(200).json({ message: '¡Gracias por unirte como fan!' });
 });
 
-// Ruta para consultar el número total de fans
-app.get('/api/fans', (req, res) => {
-  let fans = [];
-  if (fs.existsSync(fansFile)) {
-    fans = JSON.parse(fs.readFileSync(fansFile, 'utf-8'));
+// 📊 Ruta para consultar el número total de fans
+app.get('/api/fans', async (req, res) => {
+  try {
+    const count = await Fan.countDocuments();
+    res.json({ total: count });
+  } catch (err) {
+    console.error('Error al contar fans:', err);
+    res.status(500).json({ message: 'Error al obtener el número de fans' });
   }
-  res.json({ total: fans.length });
+});
+
+// 🤔 Ruta para verificar si ya es fan
+app.get('/api/fan', async (req, res) => {
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+
+  try {
+    const exists = await Fan.findOne({ ip });
+    res.status(200).json({ alreadyFan: !!exists });
+  } catch (err) {
+    console.error('Error verificando fan:', err);
+    res.status(500).json({ message: 'Error al verificar fan' });
+  }
 });
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
 });

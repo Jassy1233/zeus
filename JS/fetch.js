@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const message     = form.message.value.trim();
 
     try {
-      const res = await fetch('http://localhost:3000/api/inscripcion', {  // ← aquí
+      const res = await fetch('https://zeus-backend-production.up.railway.app', {  // ← aquí
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ discordName, position, message }),

@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 // ⚠️ Configura CORS para aceptar solo peticiones desde tu frontend en Vercel
 app.use(cors({
-  origin: 'https://zeus-backend-production.up.railway.app',
+  origin: 'https://zeus-rematch.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
 }));
